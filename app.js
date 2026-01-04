@@ -125,9 +125,7 @@ async function initApp() {
     };
 
     // --- init ---
-    if (!state.apiKey) {
-        if (els.apiKeyModal) els.apiKeyModal.showModal();
-    } else {
+    if (state.apiKey) {
         if (els.apiKeyInput) els.apiKeyInput.value = state.apiKey;
     }
 
