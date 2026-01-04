@@ -96,30 +96,7 @@
         </div>
     </div>
 
-    <!-- API Key Modal -->
-    <dialog id="apiKeyModal" class="modal modal-bottom sm:modal-middle backdrop-blur-sm">
-        <div class="modal-box bg-base-100/80 border border-white/10 shadow-2xl">
-            <h3 class="font-bold text-2xl font-serif text-primary">Unlock Travelog</h3>
-            <p class="py-4 text-base-content/70">Enter your Google Gemini API Key to start generating your travel
-                stories.</p>
-            <div class="form-control w-full">
-                <label class="label">
-                    <span class="label-text">API Key</span>
-                </label>
-                <input type="password" id="apiKeyInput" placeholder="AIzaSy..."
-                    class="input input-bordered w-full bg-base-200/50 focus:input-primary" />
-                <label class="label">
-                    <span class="label-text-alt text-error hidden" id="apiKeyError">Please enter a valid key</span>
-                </label>
-            </div>
-            <div class="modal-action flex justify-between">
-                <button class="btn btn-ghost text-error" id="clearApiKeyBtn" type="button">Clear Key</button>
-                <form method="dialog">
-                    <button class="btn btn-primary" id="saveApiKeyBtn">Start Journey</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
+
 
     <!-- App Container -->
     <div class="container mx-auto px-4 py-8 max-w-5xl">
@@ -129,16 +106,24 @@
             <div class="flex items-center gap-3">
                 <div
                     class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/30">
-                    <ion-icon name="airplane" class="text-white text-xl"></ion-icon>
+                    <ion-icon name="airplane" class="text-black text-xl"></ion-icon>
                 </div>
-                <h1 class="text-3xl font-serif font-bold tracking-tight">Travelog</h1>
+                <h1 class="text-3xl font-sans font-bold tracking-tight">Travelog</h1>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 items-center">
+                <div class="join border border-base-content/20 rounded-lg">
+                    <input id="apiKeyInput" type="password" placeholder="Gemini API Key"
+                        class="input input-sm join-item bg-transparent focus:bg-base-200 w-48 transition-all hover:bg-base-200/50" />
+                    <button id="saveApiKeyBtn"
+                        class="btn btn-sm join-item btn-ghost hover:bg-success/20 hover:text-success"><ion-icon
+                            name="save-outline"></ion-icon></button>
+                    <button id="clearApiKeyBtn"
+                        class="btn btn-sm join-item btn-ghost text-base-content/50 hover:text-error" title="Clear Key">
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                </div>
                 <button id="historyBtn" class="btn btn-ghost btn-circle" title="History">
                     <ion-icon name="time-outline" class="text-xl"></ion-icon>
-                </button>
-                <button class="btn btn-ghost btn-circle" onclick="apiKeyModal.showModal()" title="Settings">
-                    <ion-icon name="settings-outline" class="text-xl"></ion-icon>
                 </button>
             </div>
         </header>
@@ -147,7 +132,7 @@
             <div
                 class="modal-box w-11/12 max-w-3xl bg-base-100/90 border border-white/10 shadow-2xl h-[80vh] flex flex-col p-0">
                 <div class="p-6 border-b border-base-content/10 flex justify-between items-center bg-base-200/50">
-                    <h3 class="font-bold text-2xl font-serif text-primary">Your Travelog Entries</h3>
+                    <h3 class="font-bold text-2xl font-sans text-primary">Your Travelog Entries</h3>
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost"><ion-icon name="close"
                                 class="text-lg"></ion-icon></button>
@@ -260,7 +245,7 @@
                         <!-- Toolbar -->
                         <div
                             class="p-4 border-b border-base-content/10 flex justify-between items-center bg-base-200/30 rounded-t-box">
-                            <span class="font-serif font-bold text-lg tracking-wide opacity-80">Your Story</span>
+                            <span class="font-sans font-bold text-lg tracking-wide opacity-80">Your Travel Story</span>
                             <div class="flex gap-2">
                                 <button id="popOutBtn" class="btn btn-sm btn-ghost btn-square" title="Open full page">
                                     <ion-icon name="open-outline"></ion-icon>
@@ -277,7 +262,7 @@
                         <!-- Textarea replacement for Markdown rendering -->
                         <div class="relative flex-1 group overflow-hidden">
                             <div id="storyOutput"
-                                class="w-full h-full overflow-y-auto p-6 text-lg leading-loose font-serif text-base-content/90 custom-scrollbar prose"
+                                class="w-full h-full overflow-y-auto p-6 text-lg leading-loose font-sans text-base-content/90 custom-scrollbar prose"
                                 style="white-space: pre-wrap;">
                             </div>
 
@@ -286,7 +271,7 @@
                                 class="absolute inset-0 bg-base-100/50 backdrop-blur-sm flex items-center justify-center hidden">
                                 <div class="flex flex-col items-center gap-4">
                                     <span class="loading loading-ring loading-lg text-primary"></span>
-                                    <p class="animate-pulse font-serif text-primary">Crafting your narrative...</p>
+                                    <p class="animate-pulse font-sans text-primary">Crafting your narrative...</p>
                                 </div>
                             </div>
                         </div>

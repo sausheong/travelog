@@ -145,26 +145,34 @@ async function initApp() {
         if (!els.dropZone) return;
 
         // API Key
+        // API Key
         els.saveApiKeyBtn.addEventListener('click', (e) => {
             const key = els.apiKeyInput.value.trim();
             if (key) {
                 state.apiKey = key;
                 localStorage.setItem('travelog_api_key', key);
-                els.apiKeyError.classList.add('hidden');
+                // Visual feedback
+                const originalText = els.saveApiKeyBtn.innerText;
+                els.saveApiKeyBtn.innerText = 'Saved!';
+                els.saveApiKeyBtn.classList.add('text-success');
+                setTimeout(() => {
+                    els.saveApiKeyBtn.innerText = originalText;
+                    els.saveApiKeyBtn.classList.remove('text-success');
+                }, 2000);
             } else {
-                e.preventDefault();
-                els.apiKeyError.classList.remove('hidden');
+                els.apiKeyInput.focus();
+                showToast('Please enter a valid key', 'error');
             }
         });
 
         // Clear API Key
         if (els.clearApiKeyBtn) {
-            els.clearApiKeyBtn.addEventListener('click', (e) => {
-                e.preventDefault();
+            els.clearApiKeyBtn.addEventListener('click', () => {
                 state.apiKey = '';
                 localStorage.removeItem('travelog_api_key');
                 if (els.apiKeyInput) els.apiKeyInput.value = '';
-                showToast('API Key cleared!', 'info');
+                showToast('API Key cleared', 'info');
+                els.apiKeyInput.focus();
             });
         }
 
@@ -328,7 +336,12 @@ async function initApp() {
 
     async function generateStory() {
         if (!state.apiKey) {
-            els.apiKeyModal.showModal();
+            if (els.apiKeyInput) {
+                els.apiKeyInput.focus();
+                els.apiKeyInput.classList.add('input-error');
+                setTimeout(() => els.apiKeyInput.classList.remove('input-error'), 2000);
+            }
+            showToast('Please enter your Gemini API Key first.', 'warning');
             return;
         }
         if (state.images.length === 0 && !els.promptInput.value.trim()) {
@@ -635,7 +648,7 @@ Use a first-person narrative, focus on sensory details, emotions, and the atmosp
 
         const html = `
             <!DOCTYPE html>
-            <html lang="en" data-theme="sunset">
+            <html lang="en" data-theme="cupcake">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -643,13 +656,13 @@ Use a first-person narrative, focus on sensory details, emotions, and the atmosp
                 <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
                 <script src="https://cdn.tailwindcss.com"></script>
                 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+                <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
                 <style>
-                    body { font-family: 'Times New Roman', serif; background-color: #0d0d0d; color: #e0e0e0; }
+                    body { font-family: 'Outfit', sans-serif; }
                     .prose { max-width: 65ch; margin: 0 auto; line-height: 1.8; font-size: 1.25rem; }
-                    .prose h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 0.5em; color: #fff; text-align: center; }
-                    .prose h2 { font-size: 1.8em; margin-top: 1.5em; margin-bottom: 0.5em; color: #f0f0f0; }
+                    .prose h1 { font-size: 2.5em; font-weight: bold; margin-bottom: 0.5em; text-align: center; }
+                    .prose h2 { font-size: 1.8em; margin-top: 1.5em; margin-bottom: 0.5em; }
                     .prose p { margin-bottom: 1.5em; }
-                    .prose strong { color: #ffab91; }
                 </style>
             </head>
             <body class="min-h-screen p-8 md:p-16 bg-base-100">
