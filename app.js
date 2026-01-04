@@ -99,6 +99,7 @@ async function initApp() {
         apiKeyModal: document.getElementById('apiKeyModal'),
         apiKeyInput: document.getElementById('apiKeyInput'),
         saveApiKeyBtn: document.getElementById('saveApiKeyBtn'),
+        clearApiKeyBtn: document.getElementById('clearApiKeyBtn'),
         apiKeyError: document.getElementById('apiKeyError'),
 
         dropZone: document.getElementById('dropZone'),
@@ -155,6 +156,17 @@ async function initApp() {
                 els.apiKeyError.classList.remove('hidden');
             }
         });
+
+        // Clear API Key
+        if (els.clearApiKeyBtn) {
+            els.clearApiKeyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                state.apiKey = '';
+                localStorage.removeItem('travelog_api_key');
+                if (els.apiKeyInput) els.apiKeyInput.value = '';
+                showToast('API Key cleared!', 'info');
+            });
+        }
 
         // Drag & Drop
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
