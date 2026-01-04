@@ -125,6 +125,9 @@
                 <button id="historyBtn" class="btn btn-ghost btn-circle" title="History">
                     <ion-icon name="time-outline" class="text-xl"></ion-icon>
                 </button>
+                <button class="btn btn-ghost btn-circle" onclick="infoModal.showModal()" title="About Travelog">
+                    <ion-icon name="information-circle-outline" class="text-xl"></ion-icon>
+                </button>
             </div>
         </header>
 
@@ -281,6 +284,41 @@
 
         </main>
     </div>
+
+    <!-- Info Modal -->
+    <dialog id="infoModal" class="modal modal-bottom sm:modal-middle backdrop-blur-sm">
+        <div class="modal-box bg-base-100/90 border border-white/10 shadow-2xl">
+            <h3 class="font-bold text-2xl font-sans text-primary mb-4">About Travelog</h3>
+            <div class="prose prose-sm font-sans">
+                <p class="text-base-content/80 text-lg">
+                    Travelog automatically generates beautiful travel stories from your photos. It saves your generated
+                    stories in your browser's local history so you can revisit them anytime.
+                </p>
+                <h4 class="text-primary font-bold mt-4">How it works</h4>
+                <ol class="text-base-content/70">
+                    <li>Upload your travel photos</li>
+                    <li>Add some context about the trip (optional)</li>
+                    <li>Click Generate to create a story</li>
+                </ol>
+                <div class="alert alert-info bg-info/10 text-info border-info/20 mt-6 text-sm">
+                    <ion-icon name="shield-checkmark-outline" class="text-xl"></ion-icon>
+                    <div>
+                        <h4 class="font-bold">Privacy First</h4>
+                        <p>No login required. Your photos, stories, and history are stored 100% locally in your browser.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn btn-primary">Got it</button>
+                </form>
+            </div>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 
     <script type="importmap">
       {
